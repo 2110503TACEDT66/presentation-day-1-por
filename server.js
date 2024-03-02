@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 const cookieParser=require('cookie-parser');
 const connectDB = require('./config/db');
 const mongoSanitize=require('express-mongo-sanitize');
+const helmet = require('helmet');
+
 
 //Load env vars
 dotenv.config({path:'./config/config.env'});
@@ -22,6 +24,7 @@ app.use(express.json());
 
 app.use(mongoSanitize());
 app.use(cookieParser());
+app.use(helmet());
 
 //Mount routers
 app.use('/api/v1/camps',camps);
