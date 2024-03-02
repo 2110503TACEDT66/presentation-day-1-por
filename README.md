@@ -1,5 +1,5 @@
 # Campground Booking
-Software Development Project develop the backend campground booking system as REST APIs.
+Develop the backend campground booking system for a Software Development Project as REST APIs.
 
 ## Installation requirements
 - Install: `npm i express dotenv`
