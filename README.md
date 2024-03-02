@@ -1,9 +1,21 @@
 # Campground Booking
-Software Development Project develop the backend campground booking system as REST APIs.
+Develop the backend campground booking system for a Software Development Project as REST APIs.
 
-## Installation
+## Installation requirements
 - Install: `npm i express dotenv`
 - Install: `npm i -D nodemon`
+- Install: `npm i mongoose`
+- Install: `npm i jsonwebtoken bcryptjs`
+- Install: `npm i cookie-parser`
+- Install: `npm install mysql`
+
+## Additional Security and Performance Enhancements
+- Install: `npm i express-mongo-sanitize`
+- Install: `npm i helmet`
+- Install: `npm i express-xss-sanitizer`
+- Install: `npm i express-rate-limit`
+- Install: `npm i hpp`
+- Install: `npm i cors`
 
 ## Running project
 - run the application : `npm run dev`
