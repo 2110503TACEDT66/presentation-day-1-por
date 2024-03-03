@@ -22,8 +22,8 @@ const CampSchema = new mongoose.Schema({
 });
 
 //Reverse populate with virtuals
-CampSchema.virtual('appointments',{
-    ref:'Appointment',
+CampSchema.virtual('reservations',{
+    ref:'Reservation',
     localField:'_id',
     foreignField:'camp',
     justOne:false
@@ -31,8 +31,8 @@ CampSchema.virtual('appointments',{
 
 //Cascade delete appointments when a camp is deleted
 CampSchema.pre('deleteOne',{document:true,query:false},async function(next){
-    console.log(`Appointments being removed from camp ${this._id}`);
-    await this.model('Appointment').deleteMany({camp:this._id});
+    console.log(`Reservations being removed from camp ${this._id}`);
+    await this.model('Reservation').deleteMany({camp:this._id});
     next();
 });
 
