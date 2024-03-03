@@ -1,11 +1,11 @@
 const mongoose=require('mongoose');
 
 const ReservationSchema=new mongoose.Schema({
-    startDate:{
+    checkInDate:{
         type:Date,
         required:true
     },
-    endDate:{
+    checkOutDate:{
         type:Date,
         required:true
     },
@@ -14,7 +14,7 @@ const ReservationSchema=new mongoose.Schema({
         ref:'User',
         required:true
     },
-    preferredCamp:{
+    camp:{
         type:mongoose.Schema.ObjectId,
         ref:'Camp',
         required:true
