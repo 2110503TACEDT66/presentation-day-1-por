@@ -15,7 +15,7 @@ exports.getCamps= async (req,res,next)=>{
     let queryStr=JSON.stringify(reqQuery);
     queryStr=queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g,match=>`$${match}`);
 
-    query=Camp.find(JSON.parse(queryStr)).populate('appointments');
+    query=Camp.find(JSON.parse(queryStr)).populate('reservations');
 
     //Select fields
     if(req.query.select){
