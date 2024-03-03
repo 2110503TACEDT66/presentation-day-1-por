@@ -130,6 +130,11 @@ exports.updateReservation=async(req,res,next)=>{
             return res.status(401).json({success:false,msg:`User ${req.user.id} is not authorized to update this reservation`});
         }
 
+        // Prevent updating user ID for user
+        if (req.user.role !== 'admin' && req.body.user && req.body.user !== req.user.id) {
+            return res.status(401).json({ success: false, msg: `Only admin can update the user ID` });
+        }
+        
         reservation=await Reservation.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
         res.status(200).json({success:true,data:reservation});
 
