@@ -22,7 +22,7 @@ exports.register = async(req,res,next) =>{
 //@desc   login user
 //@route  post/api/v1/auth/login
 //@access public
-exports.register = async(req,res,next) =>{
+exports.login = async(req,res,next) =>{
     try{
         const{email,password} = req.body;
 

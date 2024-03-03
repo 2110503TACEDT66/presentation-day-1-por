@@ -70,14 +70,39 @@ exports.addReservation=async(req,res,next)=>{
         }
         //Add userId to req.body
         req.body.user=req.user.id;
+
+        const nowDate = new Date();
         
         //Calculate duration in days
-        const StartDate = new Date(req.body.startDate);
-        const EndDate = new Date(req.body.endDate);
-        const Duration = Math.ceil((EndDate - StartDate) / (1000 * 60 * 60 * 24));
+        const StartDate = new Date(req.body.checkInDate);
+        const EndDate = new Date(req.body.checkOutDate);
 
-        if(Duration>3){
+        if(nowDate>StartDate){
+            return res.status(400).json({ success: false, msg: 'Reservation start date cannot be in the past.' });
+        }
+        
+        // Check-in time validation
+        const checkInHour = StartDate.getHours()-7;
+
+        if (checkInHour >= 0 && checkInHour < 8) {
+            // Check-in time is between 00:00 and 08:00
+            return res.status(400).json({ success: false, msg: 'Check-in time must be between 08:00 and 24:00.' });
+        }
+        // Check-out time validation
+        const checkOutHour = EndDate.getHours()-7;
+        if(checkOutHour < 8 || checkOutHour > 12) {
+            // Check-out time is before 12:00 AM
+            return res.status(400).json({ success: false, msg: 'Check-out time must be between 08:00 and 12:00.' });
+        }
+
+        const Duration = Math.ceil((EndDate - StartDate) / (1000 * 60 * 60)); //in hour
+
+        //Check duration
+        if(Duration>3*24){
             return res.status(400).json({ success: false, msg: 'Reservation duration cannot exceed 3 days' });
+        }
+        else if(Duration<6){
+            return res.status(400).json({ success: false, msg: 'Reservation duration must be at least 6 hours' });
         }
 
         const reservation=await Reservation.create(req.body);
@@ -104,6 +129,7 @@ exports.updateReservation=async(req,res,next)=>{
         if(reservation.user.toString()!==req.user.id && req.user.role!=='admin'){
             return res.status(401).json({success:false,msg:`User ${req.user.id} is not authorized to update this reservation`});
         }
+
         reservation=await Reservation.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true});
         res.status(200).json({success:true,data:reservation});
 
@@ -135,5 +161,25 @@ exports.deleteReservation=async(req,res,nex)=>{
     catch(err){
         console.log(err.stack);
         return res.status(500).json({success:false,msg:'Cannot delete Reservation'});
+    }
+};
+
+//@desc     Delete all reservations
+//@route    DELETE /api/v1/reservations
+//@access   Private
+exports.deleteReservations = async (req, res, next) => {
+    try {
+        // Check if the user is an admin
+        if (req.user.role !== 'admin') {
+            return res.status(401).json({success: false, msg: `User ${req.user.id} is not authorized to delete reservations`});
+        }
+
+        // Delete all reservations
+        await Reservation.deleteMany({});
+
+        res.status(200).json({ success: true,data:{}, msg: 'All reservations have been deleted'});
+    } catch (err) {
+        console.log(err.stack);
+        return res.status(500).json({ success: false, msg: 'Cannot delete reservations' });
     }
 };
