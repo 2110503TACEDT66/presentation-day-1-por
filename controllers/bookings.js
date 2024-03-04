@@ -151,7 +151,7 @@ exports.updateBooking=async(req,res,next)=>{
 //@access   Private
 exports.deleteBooking=async(req,res,nex)=>{
     try{
-            const booking=await Bookingn.findById(req.params.id);
+            const booking=await Booking.findById(req.params.id);
             if(!booking){
                 return res.status(404).json({success:false,msg:`No booking with the id of ${req.params.id}`});
             }
