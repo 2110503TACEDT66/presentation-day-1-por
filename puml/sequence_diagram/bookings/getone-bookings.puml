@@ -1,8 +1,8 @@
-@startuml delete-bookings
+@startuml getone-bookings
 
 header Booking Sequence Diagram
 footer Page %page% of %lastpage%
-title "Manage Booking (Delete)"
+title "Manage Booking (Get one)"
 
 participant "Client" as client
 participant "<<javaScript>>\n:server" as server
@@ -12,16 +12,14 @@ participant "<<controllers>>\n:bookings" as controllersBookings
 participant "<<model>>\n:Booking" as modelBooking
 database "<<MongoDB>>\n:bookings" as BookingsDatabase
 
-client->server ++:req.delete('/bookings/:id')
+client->server ++:req.get('/bookings/:id')
 server->routerBookings ++:app.use('/bookings', bookings)
 routerBookings -> middlewareAuth ++: protect()
-middlewareAuth -> controllersBookings ++:deleteBooking()
-controllersBookings -> modelBooking ++: findById(req.params.id)
-modelBooking ->bookingsDatabase ++: BookingSchema
+middlewareAuth -> controllersBookings ++:getBooking()
+controllersBookings -> modelBooking ++: findById(req.params.id).populate({path:'campground',select:'name address tel'})
+modelBooking ->BookingsDatabase ++: BookingSchema
 BookingsDatabase --> modelBooking --: Booking
 controllersBookings <-- modelBooking --: Booking
-controllersBookings --> modelBooking ++: deleteOne()
-modelBooking -> BookingsDatabase ++: BookingSchema
 controllersBookings->client --:response
 
 @enduml
