@@ -192,7 +192,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"name\":\"XXX\"\n    }",
+							"raw": "{\n   \"name\":\"Update Test\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -200,21 +200,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/api/v1/hospitals/:hostpital_ID",
+							"raw": "{{URL}}/api/v1/camps/65e444c4369a4363ca593423",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"hospitals",
-								":hostpital_ID"
-							],
-							"variable": [
-								{
-									"key": "hostpital_ID",
-									"value": "{{global_hospital_ID}}"
-								}
+								"camps",
+								"65e444c4369a4363ca593423"
 							]
 						},
 						"description": "Update hospital for database"
@@ -297,7 +291,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"Ann\",\n    \"email\":\"ann@gmail.com\",\n    \"password\":\"1234456\",\n    \"role\":\"user\"\n\n}",
+							"raw": "{\n    \"name\":\"Sarah\",\n    \"email\":\"sarah@gmail.com\",\n    \"password\":\"111111\",\n    \"role\":\"user\",\n    \"tel\":\"1112334221\"\n\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -344,7 +338,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"john@gmail.com\",\n    \"password\":\"555555\"\n}",
+							"raw": "{\n    \"email\":\"mac@gmail.com\",\n    \"password\":\"111111\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -513,16 +507,16 @@
 							}
 						],
 						"url": {
-							"raw": "{{URL}}/api/v1/hospitals/65d36c1ac6237732d29fb972/appointments",
+							"raw": "{{URL}}/api/v1/camps/65dce5efb17e2172642da7f2/reservations",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"hospitals",
-								"65d36c1ac6237732d29fb972",
-								"appointments"
+								"camps",
+								"65dce5efb17e2172642da7f2",
+								"reservations"
 							]
 						}
 					},
@@ -544,7 +538,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/api/v1/reservations/65e44888f9dbf3f9e851ae71",
+							"raw": "{{URL}}/api/v1/reservations/65e45e739a3c8169d5cceb3b",
 							"host": [
 								"{{URL}}"
 							],
@@ -552,7 +546,7 @@
 								"api",
 								"v1",
 								"reservations",
-								"65e44888f9dbf3f9e851ae71"
+								"65e45e739a3c8169d5cceb3b"
 							]
 						}
 					},
@@ -582,7 +576,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"checkInDate\":\"2021-11-15T17:00:00.000Z\",\n    \"checkOutDate\":\"2021-11-16T17:00:00.000Z\",\n    \"user\":\"5dce232b17e2172642da7d6\"\n}",
+							"raw": "{\n    \"checkInDate\":\"2024-12-12T16:00:00.000Z\",\n    \"checkOutDate\":\"2024-12-14T10:00:00.000Z\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -590,7 +584,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/api/v1/camps/65dce477b17e2172642da7da/reservations",
+							"raw": "{{URL}}/api/v1/camps/65dce5efb17e2172642da7f2/reservations",
 							"host": [
 								"{{URL}}"
 							],
@@ -598,7 +592,7 @@
 								"api",
 								"v1",
 								"camps",
-								"65dce477b17e2172642da7da",
+								"65dce5efb17e2172642da7f2",
 								"reservations"
 							]
 						}
@@ -629,7 +623,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"apptDate\":\"2024-01-16T17:00:00.000Z\",\n    \"user\":\"65d6e9b7df736fd7a869b6e0\"\n}",
+							"raw": "{\n    \"user\":\"65e35a3c8efa1adfffa93892\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -637,15 +631,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/api/v1/appointments/65dc1f3957066b91acac3053",
+							"raw": "{{URL}}/api/v1/reservations/65e464636dedb80532edd10d",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"appointments",
-								"65dc1f3957066b91acac3053"
+								"reservations",
+								"65e464636dedb80532edd10d"
 							]
 						}
 					},
@@ -667,7 +661,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/api/v1/reservations/65e44725f9dbf3f9e851ae59",
+							"raw": "{{URL}}/api/v1/reservations/65e45e739a3c8169d5cceb3b",
 							"host": [
 								"{{URL}}"
 							],
@@ -675,7 +669,7 @@
 								"api",
 								"v1",
 								"reservations",
-								"65e44725f9dbf3f9e851ae59"
+								"65e45e739a3c8169d5cceb3b"
 							]
 						}
 					},
