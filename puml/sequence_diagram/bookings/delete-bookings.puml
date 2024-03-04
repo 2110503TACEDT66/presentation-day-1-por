@@ -10,18 +10,18 @@ participant "<<router>>\n:bookings" as routerBookings
 participant "<<middleware>>\n:auth" as middlewareAuth
 participant "<<controllers>>\n:bookings" as controllersBookings
 participant "<<model>>\n:Booking" as modelBooking
-database "<<MongoDB>>\n:bookins" as bookingsDatabase
+database "<<MongoDB>>\n:bookings" as bookingsDatabase
 
 client->server ++:req.delete('/bookings/:id')
 server->routerBookings ++:app.use('/bookings', bookings)
-routerBookings -> middleware ++: protect()
-middleware -> controllersBookings ++:deleteBooking()
+routerBookings -> middlewareAuth ++: protect()
+middlewareAuth -> controllersBookings ++:deleteBooking()
 controllersBookings -> modelBooking ++: findById(req.params.id)
 modelBooking ->bookingsDatabase ++: BookingSchema
-BookingsDatabase --> modelBooking --: bookings
+bookingsDatabase --> modelBooking --: bookings
 controllersBookings <-- modelBooking --:bookings
 controllersBookings --> modelBooking ++: deleteOne()
-modelBooking -> BookingsDatabase ++: BookingSchema
+modelBooking -> bookingsDatabase ++: BookingSchema
 controllersBookings->client --:response
 
 @enduml

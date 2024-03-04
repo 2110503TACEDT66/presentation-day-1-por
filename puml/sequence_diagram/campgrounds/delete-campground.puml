@@ -7,19 +7,21 @@ title "Manage Campground (Delete)"
 participant "Client" as client
 participant "<<javaScript>>\n:server" as server
 participant "<<router>>\n:campgrounds" as routerCampgrounds
-participant "<<middleware>>\n:auth" as middleware
+participant "<<middleware>>\n:auth" as middlewareAuth
 participant "<<controllers>>\n:campgrounds" as controllersCampgrounds
 participant "<<model>>\n:Campground" as modelCampground
 database "<<MongoDB>>\n:campgrounds" as CampgroundsDatabase
 
 client->server ++:req.delete('/campgrounds/:id')
-server->routerCampgrounds ++:app.use('/campgrounds/:id',campgrounds)
-routerCampgrounds -> middleware ++: protect()
-routerCampgrounds -> controllersCampgrounds ++:deleteCampground()
+server->routerCampgrounds ++:app.use('/campgrounds',campgrounds)
+routerCampgrounds -> middlewareAuth ++: protect(), authorize('admin')
+middlewareAuth -> controllersCampgrounds ++:deleteCampground()
 controllersCampgrounds->modelCampground ++:findById(req.params.id)
-modelCampground ->CampgroundsDatabase ++: CampgroundSchema.deleteOne({_id:req.params.id})
+modelCampground -> CampgroundsDatabase ++: CampgroundSchema
 CampgroundsDatabase --> modelCampground --: Campground
 controllersCampgrounds <-- modelCampground --: Campground
+controllersCampgrounds --> modelCampground ++: deleteOne()
+modelCampground -> CampgroundsDatabase ++: CampgroundSchema
 controllersCampgrounds->client --:response
 
 @enduml
