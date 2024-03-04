@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const CampSchema = new mongoose.Schema({
+const CampgroundSchema = new mongoose.Schema({
     name : {
         type : String,
         required : [true, 'Please add a name'],
@@ -22,18 +22,18 @@ const CampSchema = new mongoose.Schema({
 });
 
 //Reverse populate with virtuals
-CampSchema.virtual('reservations',{
-    ref:'Reservation',
+CampgroundSchema.virtual('bookings',{
+    ref:'Booking',
     localField:'_id',
-    foreignField:'camp',
+    foreignField:'campground',
     justOne:false
 });
 
-//Cascade delete appointments when a camp is deleted
-CampSchema.pre('deleteOne',{document:true,query:false},async function(next){
-    console.log(`Reservations being removed from camp ${this._id}`);
-    await this.model('Reservation').deleteMany({camp:this._id});
+//Cascade delete appointments when a campground is deleted
+CampgroundSchema.pre('deleteOne',{document:true,query:false},async function(next){
+    console.log(`Bookings being removed from campground ${this._id}`);
+    await this.model('Booking').deleteMany({campground:this._id});
     next();
 });
 
-module.exports=mongoose.model('Camp',CampSchema);
+module.exports=mongoose.model('Campground',CampgroundSchema);
