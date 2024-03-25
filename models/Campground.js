@@ -15,6 +15,9 @@ const CampgroundSchema = new mongoose.Schema({
         type:String,
         required: [true,'Please add telephone number'],
         maxlength : 10
+    },
+    image:{
+        type:String
     }
 },{
     toJSON:{virtuals:true},
