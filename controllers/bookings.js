@@ -82,18 +82,18 @@ exports.addBooking=async(req,res,next)=>{
         }
         
         // Check-in time validation
-        const checkInHour = StartDate.getHours()-7;
+        // const checkInHour = StartDate.getHours()-7;
 
-        if (checkInHour >= 0 && checkInHour < 8) {
-            // Check-in time is between 00:00 and 08:00
-            return res.status(400).json({ success: false, msg: 'Check-in time must be between 08:00 and 24:00.' });
-        }
-        // Check-out time validation
-        const checkOutHour = EndDate.getHours()-7;
-        if(checkOutHour < 8 || checkOutHour > 12) {
-            // Check-out time is before 12:00 AM
-            return res.status(400).json({ success: false, msg: 'Check-out time must be between 08:00 and 12:00.' });
-        }
+        // if (checkInHour >= 0 && checkInHour < 8) {
+        //     // Check-in time is between 00:00 and 08:00
+        //     return res.status(400).json({ success: false, msg: 'Check-in time must be between 08:00 and 24:00.' });
+        // }
+        // // Check-out time validation
+        // const checkOutHour = EndDate.getHours()-7;
+        // if(checkOutHour < 8 || checkOutHour > 12) {
+        //     // Check-out time is before 12:00 AM
+        //     return res.status(400).json({ success: false, msg: 'Check-out time must be between 08:00 and 12:00.' });
+        // }
 
         const Duration = Math.ceil((EndDate - StartDate) / (1000 * 60 * 60)); //in hour
 
@@ -101,9 +101,9 @@ exports.addBooking=async(req,res,next)=>{
         if(Duration>3*24){
             return res.status(400).json({ success: false, msg: 'Booking duration cannot exceed 3 days' });
         }
-        else if(Duration<6){
-            return res.status(400).json({ success: false, msg: 'Booking duration must be at least 6 hours' });
-        }
+        // else if(Duration<6){
+        //     return res.status(400).json({ success: false, msg: 'Booking duration must be at least 6 hours' });
+        // }
 
         const booking=await Booking.create(req.body);
         res.status(200).json({success:true,data:booking});

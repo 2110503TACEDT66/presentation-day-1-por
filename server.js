@@ -56,7 +56,8 @@ app.use('/api/v1/bookings',bookings);
 //Sets the port for the Express server. It either uses the value of the PORT environment variable or defaults to port 5100
 const PORT=process.env.PORT || 5100;
 //Starts the Express server, listening on the specified port
-const server=app.listen(PORT,console.log('Server running in ',process.env.NODE_ENV,' mode on port ',PORT));
+const server=app.listen(PORT,console.log('Server running in ',process.env.NODE_ENV,' mode on port '+ process.env.HOST + ":" +PORT));
+
 
 //Handle Unhandled promise rejections
 process.on('unhandledRejection',(err,promise)=>{
